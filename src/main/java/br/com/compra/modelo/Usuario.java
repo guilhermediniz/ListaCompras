@@ -7,9 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import br.com.compra.modelo.abstrata.pessoa;
-import br.com.lista.model.GroupUser;
-import br.com.lista.model.Item;
-import br.com.lista.model.ListItem;
+import br.com.compra.modelo.Item;
 
 @Entity
 public class Usuario extends pessoa {
