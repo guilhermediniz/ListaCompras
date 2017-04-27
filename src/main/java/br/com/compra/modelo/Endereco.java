@@ -1,6 +1,21 @@
 package br.com.compra.modelo;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+
+import org.springframework.data.annotation.Transient;
+
 public class Endereco {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Endereco_SEQ")
+	@SequenceGenerator(name = "Endereco_SEQ", sequenceName = "seq_endereco", allocationSize = 1)
+	@Column(name = "id", updatable = false, nullable = false)
 	
 	private Long id;
 	private String rua;
@@ -12,6 +27,12 @@ public class Endereco {
 	private String codigo;
 	private float latitude;
 	private float longitude;
+	@Transient
+	private float distancia;
+	@ManyToOne
+	private Usuario UsuarioProprietario;
+	private Date dataCriacao;
+	private Date dataUltimaAlteracao;
 	
 	public Long getId() {
 		return id;
@@ -92,4 +113,30 @@ public class Endereco {
 	public void setLongitude(float longitude) {
 		this.longitude = longitude;
 	}
+	
+	public Usuario getUsuarioProprietario() {
+		return UsuarioProprietario;
+	}
+
+	public void setUsuarioProprietario(Usuario UsuarioProprietario) {
+		this.UsuarioProprietario = UsuarioProprietario;
+	}
+
+	public Date getdataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setdataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getdataUltimaAlteracao() {
+		return dataUltimaAlteracao;
+	}
+
+	public void setdataUltimaAlteracao(Date dataUltimaAlteracao) {
+		this.dataUltimaAlteracao = dataUltimaAlteracao;
+	}
+	
+	
 }

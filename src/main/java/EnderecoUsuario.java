@@ -1,5 +1,3 @@
-package br.com.compra.modelo;
-
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -8,27 +6,23 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
-
-
-
-public class TelefoneUsuario {
-	
+public class EnderecoUsuario {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="TelefoneUsuario_SEQ")
-	@SequenceGenerator(name = "TelefoneUsuario_SEQ", sequenceName = "seq_TelefoneUsuario", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EnderecoUsuario_SEQ")
+	@SequenceGenerator(name = "EnderecoUsuario_SEQ", sequenceName = "seq_EnderecoUsuario", allocationSize = 1)
 	@Column(name = "id", updatable = false, nullable = false)
 	
 	private Long id;
-	private Long idTelefone;
+	private Long idEndereco;
 	private Long idUsuario;
-	private boolean Telefone;
-	private boolean usuario;
-	
+	private boolean Endereco;
+	private boolean Usuario;
 	@ManyToOne
 	private Usuario usuarioProprietario;
 	private Date dataCriacao;
+	private Date dataUltimaAlteracao;
+	private float frequenciaUsada;
 	private String descricao;
-	private float taxa;
 	
 	public Long getId() {
 		return id;
@@ -36,14 +30,14 @@ public class TelefoneUsuario {
 
 	public void setId(Long id) {
 		this.id = id;
+    }
+	
+	public Long getIdEndereco() {
+		return idEndereco;
 	}
 
-	public Long getIdTelefone() {
-		return idTelefone;
-	}
-
-	public void setIdTelefone(Long idTelefone) {
-		this.idTelefone = idTelefone;
+	public void setIdEndereco(Long idEndereco) {
+		this.idEndereco = idEndereco;
 	}
 
 	public Long getIdUsuario() {
@@ -54,22 +48,22 @@ public class TelefoneUsuario {
 		this.idUsuario = idUsuario;
 	}
 
-	public boolean getTelefone () {
-		return Telefone;
+	public boolean getEndereco() {
+		return Endereco;
 	}
 
-	public void setTelefone(boolean Telefone) {
-		this.Telefone = Telefone;
+	public void setEndereco(boolean Endereco) {
+		this.Endereco = Endereco;
 	}
 
 	public boolean getUsuario() {
-		return usuario;
+		return Usuario;
 	}
 
 	public void setUsuario(boolean Usuario) {
-		this.usuario = Usuario;
+		this.Usuario = Usuario;
 	}
-
+	
 	public Usuario getUsuarioProprietario() {
 		return usuarioProprietario;
 	}
@@ -77,28 +71,36 @@ public class TelefoneUsuario {
 	public void setUsuarioProprietario(Usuario usuarioProprietario) {
 		this.usuarioProprietario = usuarioProprietario;
 	}
-	
+
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setDataCriacao(Date DataCriacao) {
+		this.dataCriacao = DataCriacao;
 	}
-	
+
+	public Date getDataUltimaAlteracao() {
+		return dataUltimaAlteracao;
+	}
+
+	public void setDataUltimaAlteracao(Date dataUltimaAlteracao) {
+		this.dataUltimaAlteracao = dataUltimaAlteracao;
+	}
+	public float getFrequenciaUsada() {
+		return  frequenciaUsada;
+	}
+
+	public void setFrequenciaUsada(float  frequenciaUsada) {
+		this. frequenciaUsada =  frequenciaUsada;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
-	
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-	public float getTaxa() {
-		return taxa;
-	}
-
-	public void setTaxa(float taxa) {
-		this.taxa = taxa;
-	}
 }

@@ -1,7 +1,3 @@
-package br.com.compra.modelo;
-
-import java.util.Date;
-
 public class TelefoneLocalDeCompra {
 	
 	private Long id;

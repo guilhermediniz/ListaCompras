@@ -1,10 +1,19 @@
 package br.com.compra.modelo;
 
+import java.util.Date;
+import javax.persistence.ManyToOne;
+
+
+
 public class UsuarioGrupoDeUsuario {
 	
 	private Long id;
 	private Long idUsuario;
 	private Long idGrupo;
+	@ManyToOne
+	private Usuario usuarioProprietario;
+	private Date dataCriacao;
+	private String descricao;
 
 	public Long getId() {
 		return id;
@@ -30,5 +39,29 @@ public class UsuarioGrupoDeUsuario {
 		this.idGrupo = idGrupo;
 	}
 	
+
+	public Usuario getUsuarioProprietario() {
+		return usuarioProprietario;
+	}
+
+	public void setUsuarioProprietario(Usuario UsuarioProprietario) {
+		this.usuarioProprietario = UsuarioProprietario;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date DataCriacao) {
+		this.DataCriacao = DataCriacao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 }	
 
