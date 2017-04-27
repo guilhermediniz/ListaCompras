@@ -1,5 +1,7 @@
 package br.com.compra.modelo;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,9 +20,9 @@ public class GrupoUsuario {
 	private String nome;
 	private String descricao;
 	@Transient
-	private Lista<ListaItem> listaItemLista;
+	private List<ListaItem> listaItemLista;
 	@Transient
-	private Lista<Usuario> usuarioLista;
+	private List<Usuario> usuarioLista;
 	@ManyToOne
 	private Usuario usuarioProprietario;
 	private Date dataCriacao;
@@ -52,7 +54,7 @@ public class GrupoUsuario {
 		this.descricao = descricao;
 	}
 	
-	public Lista<ListaItem> getListaItemLista() {
+	public List<ListaItem> getListaItemLista() {
 		return listaItemLista;
 	}
 
@@ -62,11 +64,11 @@ public class GrupoUsuario {
 	
 
 	
-	public Lista<Usuario> getUsuarioLista() {
+	public List<Usuario> getUsuarioLista() {
 		return usuarioLista;
 	}
 
-	public void setUsuarioLista(Lista<Usuario> usuarioLista) {
+	public void setUsuarioLista(List<Usuario> usuarioLista) {
 		this.usuarioLista = usuarioLista;
 	}
 	

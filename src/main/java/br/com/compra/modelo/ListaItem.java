@@ -1,5 +1,4 @@
 package br.com.compra.modelo;
-
 import java.util.Date;
 import java.util.List;
 import javax.persistence.ManyToOne;
@@ -20,10 +19,10 @@ public class ListaItem {
 	@Transient
 	private float peso;
 	@Transient
-	private Lista<GrupoUsuario> grupoLista;
+	private List<GrupoUsuario> grupoLista;
 	
 	public Lista<Item> updateItemLista(ItemListaItemService itemListaItemService) throws Exception {
-		this.itemLista=itemListaItemService.findByIdListItem(this.id);
+		this.itemLista=itemListItemService.findByIdListItem(this.id);
 		return itemLista;
 	}
 	

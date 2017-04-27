@@ -32,7 +32,7 @@ public class Item {
 	@ManyToOne
 	private Usuario usuarioProprietario;
 	@Transient
-	private Lista<ListaItem> listaItemLista;
+	private List<ListaItem> listaItemLista;
 	
 	public Long getId() {
 		return id;
@@ -130,7 +130,7 @@ public class Item {
 		this.usuarioProprietario = usuarioProprietario;
 	}
 	
-	public Lista<ListaItem> getListaItemLista() {
+	public List<ListaItem> getListaItemLista() {
 		return listaItemLista;
 	}
 
