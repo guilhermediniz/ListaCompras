@@ -1,5 +1,4 @@
 package br.com.compra.modelo;
-
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -7,9 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-
-
-
 
 public class TelefoneUsuario {
 	

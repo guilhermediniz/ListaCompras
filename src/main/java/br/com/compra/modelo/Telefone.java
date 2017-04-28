@@ -10,7 +10,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
 public class Telefone {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Telefone_SEQ")
 	@SequenceGenerator(name = "Telefone_SEQ", sequenceName = "seq_telefone", allocationSize = 1)

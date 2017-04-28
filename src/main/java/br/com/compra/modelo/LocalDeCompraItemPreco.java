@@ -1,5 +1,4 @@
 package br.com.compra.modelo;
-
 public class LocalDeCompraItemPreco {
 	
 	private Long id;
@@ -65,8 +64,5 @@ public class LocalDeCompraItemPreco {
 
 	public void setPreco(float preco) {
 		this.preco = preco;
-	}
-
-	
-	
+	}	
 }

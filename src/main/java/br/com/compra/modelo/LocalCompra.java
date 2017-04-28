@@ -1,5 +1,4 @@
 package br.com.compra.modelo;
-
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
