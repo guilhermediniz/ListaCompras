@@ -63,11 +63,53 @@ public class UsuarioControlador {
 		}
 		return modelAndView;
 	}	
+		
+	@RequestMapping(value="alterEndereco",method = RequestMethod.POST)
+	public ModelAndView alterEndereco(@Valid Endereco endereco,BindingResult bindingResult){
+		ModelAndView modelAndView = new ModelAndView("redirect:/index"); 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getNome(); 
+		Usuario usuarioAux;
+		try {
+			usuarioAux = servicoUsuario.findByEmail(email);
+			endereco.setUsuarioProprietario(usuarioAux);
+			if(endereco.getId()==null){
+				servicoEndereco.saveEndereco(endereco);
+				EnderecoUsuario enderecoUsuario=new EnderecoUsuario();
+				enderecoUsuario.setIdEndereco(endereco.getId());
+				enderecoUsuario.setIdUsuario(usuarioAux.getId());
+				Date date=new Date(System.currentTimeMillis());
+				enderecoUsuario.setDataCriacao(data);
+				enderecoUsuario.setUsuarioProprietario(usuarioAux);
+				enderecoUsuarioServico.saveEnderecoUsuario(enderecoUsuario);
+			}else{
+				servicoEndereco.updateEndereco(endereco);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("500");
+		}
+		return modelAndView;
+	}
 	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(value="/save",  method = RequestMethod.POST)
+	public ModelAndView saveUsuario(@Valid Usuario usuario, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/login");
+		String password=usuario.getPassword();
+		try {
+			if(usuario.getId()==null){
+				servicoUsuario.saveUsuario(usuario);
+				String subjectEmail = "Cadastro realizado com sucesso!";
+				String msgEmail = usuario.getNome() + ", seu cadastro foi realizado com sucesso!\nSua senha é:\t"+password;
+				senderMail.enviarEmailParaUsuario(usuario.getEmail(), subjectEmail, msgEmail);
+			}else{
+				servicoUsuario.updateUsuario(usuario);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("500");
+		}
+		return modelAndView;
+	}
+		
 }
