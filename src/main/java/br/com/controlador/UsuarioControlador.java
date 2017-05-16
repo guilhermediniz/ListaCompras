@@ -1,5 +1,6 @@
 package br.com.controlador;
 
+import java.beans.PropertyEditorSupport;
 import java.sql.Date;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -8,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -111,5 +114,60 @@ public class UsuarioControlador {
 		}
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/edit",  method = RequestMethod.GET)
+	public ModelAndView loadUsuario() {
+		ModelAndView modelAndView = new ModelAndView("user/form");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getNome(); 
+		try {
+			Usuario usuarioAux=servicoUsuario.findByEmail(email);
+			modelAndView.addObject("usuario",usuarioAux);
+			if(enderecoUsuarioServico.findByUser(usuarioAux)==null){
+				modelAndView.addObject("endereco",new Endereco());
+			}else{
+				modelAndView.addObject("endereco",enderecoUsuarioServico.findByUsuario(usuarioAux));
+			}
+			if(telefoneUsuarioServico.findByUsuario(usuarioAux)==null){
+				modelAndView.addObject("telefone",new Telefone());
+			}else{
+				modelAndView.addObject("telefone",telefoneUsuarioServico.findByUsuario(usuarioAux));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("500");
+		}
+		return modelAndView;
+	}
 		
+	@RequestMapping(value="/remove",  method = RequestMethod.GET)
+	public ModelAndView removeUsuario() {
+		ModelAndView modelAndView = new ModelAndView("redirect:/logout");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getNome(); 
+		try {
+			Usuario usuarioAux=servicoUsuario.findByEmail(email);
+			servicoUsuario.removeUsuario(servicoUsuario.findById(usuarioAux.getId()));
+		} catch (Exception e) {
+			return new ModelAndView("500");
+		}
+		return modelAndView;
+	}		
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+	        @Override
+	        public void setAsText(String date) {
+	        	try {
+	    			String[] dates = date.split("/");
+	    			@SuppressWarnings("deprecation")
+					Date dateAux=new Date(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]), Integer.parseInt(dates[2]));
+	    			this.setValue(dateAux);
+	    		}catch (Exception e) {
+	    			e.printStackTrace();
+	    		}
+	        }
+		});
+	}	
 }
