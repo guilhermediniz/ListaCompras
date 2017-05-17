@@ -8,10 +8,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import br.com.lista.model.Item;
 
 @Controller
 @RequestMapping("/item")
@@ -86,5 +89,35 @@ public class ItemControlador {
 		}
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/edit/{id}",  method = RequestMethod.GET)
+	public ModelAndView loadItem(@PathVariable("id") Long idItem) {
+		ModelAndView modelAndView = new ModelAndView("item/form");
+		try {
+			modelAndView.addObject("item",servicoItem.findById(idItem));
+			modelAndView.addObject("listItem",servicoItem.findAll());			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("500");
+		}
+		return modelAndView;
+	}
+		
+	@RequestMapping(value="/form",  method = RequestMethod.GET)
+	public ModelAndView form(Item item) {
+		ModelAndView modelAndView = new ModelAndView("item/form");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/remove/{id}",  method = RequestMethod.GET)
+	public ModelAndView removeItem(@PathVariable("id") Long idItem) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/item");
+		try {
+			servicoItem.remocoItem(servicoItem.findById(idItem));
+		} catch (Exception e) {
+			return new ModelAndView("500");
+		}
+		return modelAndView;
+	}	
 	
 }
